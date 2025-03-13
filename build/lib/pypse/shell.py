@@ -19,7 +19,7 @@ def launch():
                 options['WARNING'] = False
         else:
             file_name = argv
-
+    
     file_path = os.path.realpath(os.path.join(os.getcwd(), file_name))
     file = open(file_path, "r")
 

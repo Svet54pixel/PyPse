@@ -1,0 +1,7 @@
+DECLARE a : INT
+a <- 3
+CASE a
+	OTHERWISE
+		OUTPUT a
+ENDCASE
+

@@ -21,4 +21,5 @@ OUTPUT a[0]
 OUTPUT a[1]
 OUTPUT a[2]
 OUTPUT a[3]
+OUTPUT "hello"
 

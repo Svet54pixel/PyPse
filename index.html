@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPse Compiler</title>
+</head>
+<body>
+  <div id="top"></div>
+  <div style="width: 1440px; height: 40px; font-size : 36px ">Questions:</div>
+  <div style="width: 1440px; height: 40px; font-size : 32px "><a href="#div_id">June 2023 (v3)</a></div>
+  <div style="width: 1440px; height: 40px; font-size : 32px "><a href="#div1_id">June 2022 (v1)</a></div>
+  <div style="width: 1440px; height: 40px; font-size : 32px "><a href="#div_id2">November 2022 (v3)</a></div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+  <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+  <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+  <body>
+    <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}  }}} -->
+    <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:heading -->
+    
+
+  <div style="width: 1440px; height: 40px; font-size : 25px; color :blueviolet"><a href="#top">Back to content page</a></div>
+  <div style="width: 1440px; height: 40px; font-size : 36px ">Questions:</div>
+    <h2 class="wp-block-heading">June 2022 (v1)</h2>
+    <!-- /wp:heading --></main>
+    <div id="div1_id"></div>
+    <!-- /wp:group -->
+    <p style='font-size: 20px; color:red;'> <b>Caution: Compiler cannot process INPUT statements and also cannot process more than one declartion per line (eg. Please write "DECLARE a, b : INTEGER" as "DECLARE a : INTEGER" and "DECLARE b : INTEGER" on separate lines )</b></p>
+    <!-- wp:image {"id":47,"sizeSlug":"large","linkDestination":"none"} -->
+    <figure class="wp-block-image size-large"><img src="https://ciepseudocodequestionschecker.wordpress.com/wp-content/uploads/2024/11/haaaa.png?w=1024" alt="" class="wp-image-47"/></figure>
+    <!-- /wp:image -->
+    <table>
+      <thead>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+        <tr>
+          <th scope="col"><u>Test input (note : this question assumes all input is of the correct format so such checks are not necessary)</u></th>
+          <th scope="col"><u>Expected result</u></th>
+          <th scope="col"><u>Potential source of error</u></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">OUTPUT Factorial(5)</th>
+          <td>120</td>
+          <td>If it returns 24 then you are subtracting one too early (24 is 4 factorial). If it returns 720 the process is done one too many times (720 is 6 factorial)</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT Factorial(0)</th>
+          <td>1</td>
+          <td>Depending on logic, this case might need to be declared seperately</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT Factorial(-7 )</th>
+          <td>-1</td>
+          <td>If crashes or returns something else, exception case does not exist or has it has incorrect conditions</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT Factorial(1)</th>
+          <td>1</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT select(-1)</th>
+          <td>-1</td>
+          <td>If 460 output, check that the end value is excluded</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+    
+      
+
+    <!-- /wp:table -->
+    
+    <h1>PyPse Compiler</h1>
+    <textarea id="pseudocode" placeholder="Enter your pseudocode here..." rows="10" cols="50"></textarea><br>
+    <button onclick="compilePseudocode()">Run</button>
+    <h2>Output:</h2>
+    <pre id="output"></pre>
+    <h2>Error:</h2>
+    <pre id="error"></pre>
+
+    <script>
+        async function compilePseudocode() {
+            const pseudocode = document.getElementById('pseudocode').value;
+            const response = await fetch('/compile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pseudocode }),
+            });
+            const result = await response.json();
+            document.getElementById('output').textContent = result.output || '';
+            document.getElementById('error').textContent = result.error || '';
+        }
+    </script>
+    <br> </br> <br> </br>
+    <details>
+
+        <summary>Hint </summary>
+        <p>Try starting from 1 and multiplying till you reach the required number</p>
+    </details>
+
+    <details>
+        <summary>Solution from markscheme </summary>
+        <p><br> <pre>
+        FUNCTION Factorial(ThisNum : INTEGER) RETURNS INTEGER
+          DECLARE Value : INTEGER
+          IF ThisNum < 0 THEN
+            Value <- -1
+          ELSE
+            Value <-  1
+            WHILE ThisNum <> 0 DO
+              Value <- Value * ThisNum
+              ThisNum <- ThisNum -1
+            ENDWHILE
+          ENDIF
+          RETURN Value
+        ENDFUNCTION 
+       
+</p>
+    </details>
+    <details>
+        <summary>Alternative Solution </summary>
+        <p><br> <pre>
+          FUNCTION Factorial(ThisNum : INTEGER) RETURNS INTEGER
+            IF ThisNum > 1 THEN
+              RETURN ThisNum * Factorial(ThisNum - 1)
+            ELSE
+              IF ThisNum = 1 OR ThisNum = 0 THEN
+                RETURN 1
+              ELSE
+                RETURN -1
+              ENDIF
+            ENDIF
+          ENDFUNCTION
+    </details>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+  <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+  <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+
+    <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}}}} -->
+    <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:heading -->
+    <div style="width: 1440px; height: 40px; font-size : 25px; color :blueviolet"><a href="#top">Back to content page</a></div>
+    <h2 class="wp-block-heading">June 2023 (v3)</h2>
+    <!-- /wp:heading --></main>
+    <!-- /wp:group -->
+    <div id="div_id"></div>
+    <p style='font-size: 20px; color:red;'> <b>Caution: Compiler cannot process INPUT statements and also cannot process more than one declartion per line (eg. Please write "DECLARE a, b : INTEGER" as "DECLARE a : INTEGER" and "DECLARE b : INTEGER" on separate lines )</b></p>
+    <!-- wp:image {"id":14,"sizeSlug":"large","linkDestination":"none"} -->
+    <figure class="wp-block-image size-large"><img src="https://ciepseudocodequestionschecker.wordpress.com/wp-content/uploads/2024/11/screenshot-2024-11-22-140018.png?w=1024" alt="" class="wp-image-10"/></figure>
+    <!-- /wp:image -->
+        
+    <!-- wp:table -->
+    <table>
+      <thead>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+        <tr>
+          <th scope="col"><u>Test input (note : this question assumes all input is of the correct format so such checks are not necessary)</u></th>
+          <th scope="col"><u>Expected result</u></th>
+          <th scope="col"><u>Potential source of error</u></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">OUTPUT select(111, 112)</th>
+          <td>Nothing is Output</td>
+          <td>placeholder</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT select(10, 99)</th>
+          <td>15, 24, 33, 42, 51, 60</td>
+          <td>placeholder</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT select(70, 107 )</th>
+          <td>106</td>
+          <td>placeholder</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT select(142, 145)</th>
+          <td>Nothing is outpute</td>
+          <td>If 142 output, check that the start value is excluded</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT select(456, 460)</th>
+          <td>Nothing is outpute</td>
+          <td>If 460 output, check that the end value is excluded</td>
+        </tr>
+        <tr>
+          <th scope="row">OUTPUT select(1320, 1322)</th>
+          <td>Nothing is outpute</td>
+          <td>If 1321 is outputted, but he previous checks don't fail, check that the last two digits are being taken (not the first being removed)</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+    
+      
+
+    <!-- /wp:table -->
+
+
+    <h1>PyPse Compiler</h1>
+    <textarea id="pseudocode2" placeholder="Enter your pseudocode here..." rows="10" cols="50"></textarea><br>
+    <button onclick="compilePseudocode2()">Run</button>
+    <h2>Output:</h2>
+    <pre id="output2"></pre>
+    <h2>Error:</h2>
+    <pre id="error2"></pre>
+
+    <script>
+        async function compilePseudocode2() {
+            const pseudocode2 = document.getElementById('pseudocode2').value;
+            
+            const response2 = await fetch('/compile2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ pseudocode2 }),
+            });
+            const result2 = await response2.json();
+            document.getElementById('output2').textContent = result2.output2 || '';
+            document.getElementById('error2').textContent = result2.error2 || '';
+
+        }
+    </script>
+    <br> </br> <br> </br>
+    <details>
+
+        <summary>Hint </summary>
+        <p>Consider string concatination</p>
+    </details>
+
+    <details>
+        <summary>Idea behind solution in plain English </summary>
+        <p>1)Initialise a variable as an empty string <br>
+        2)If count is less than 1 assign error to the variable<br>
+        3)In a loop that goes count amount of times, add the character to the previously initialized variable<br>
+        4)Return the variable</p>
+    </details>
+
+    <details>
+        <summary>Solution from markscheme </summary>
+        <p>FUNCTION MakeString(Count : INTEGER, AChar : CHAR) RETURNS STRING <br><pre>
+          &#009;DECLARE MyString : STRING<br>
+          &#009;DECLARE Index : INTEGER<br>
+          &#009;IF Count < 1 THEN<br>
+          &#009;&#009;MyString &lt;- "ERROR"<br>
+          &#009;ELSE<br>
+          &#009;&#009;MyString &lt;- ""<br>
+          &#009;&#009;FOR Index &lt;- 1 TO Count<br>
+          &#009;&#009;&#009;MyString &lt;- MyString & AChar<br>
+          &#009;&#009;NEXT Index<br>
+          &#009;ENDIF<br>
+          &#009;RETURN MyString<br>
+          ENDFUNCTION </p>
+    </details>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+    <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+    <hr style="height:5px;border-width:1;color:rgb(105, 69, 191);background-color:rgb(74, 51, 120)">
+    <body>
+      <!-- wp:group {"tagName":"main","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}  }}} -->
+      <main class="wp-block-group" style="margin-top:0;margin-bottom:0"><!-- wp:heading -->
+      <div style="width: 1440px; height: 40px; font-size : 25px; color :blueviolet"><a href="#top">Back to content page</a></div>
+      <h2 class="wp-block-heading">November 2022 (v3)</h2>
+      <!-- /wp:heading --></main>
+      <div id="div_id2"></div>
+      <!-- /wp:group -->
+      <p style='font-size: 20px; color:red;'> <b>Caution: Compiler cannot process INPUT statements and also cannot process more than one declartion per line (eg. Please write "DECLARE a, b : INTEGER" as "DECLARE a : INTEGER" and "DECLARE b : INTEGER" on separate lines )</b></p>
+      <!-- wp:image {"id":54,"sizeSlug":"large","linkDestination":"none"} -->
+      <figure class="wp-block-image size-large"><img src="https://ciepseudocodequestionschecker.wordpress.com/wp-content/uploads/2024/11/die.png?w=1024" alt="" class="wp-image-54"/></figure>
+      <!-- /wp:image -->
+
+      <!-- wp:image {"id":53,"sizeSlug":"large","linkDestination":"none"} -->
+      <figure class="wp-block-image size-large"><img src="https://ciepseudocodequestionschecker.wordpress.com/wp-content/uploads/2024/11/die2.png?w=1024" alt="" class="wp-image-53"/></figure>
+      <!-- /wp:image -->
+      <br>
+      <p style='font-size: 20px;'><br> Please copy the Test inputs from the table to the last line of your code to test it: </p><br>
+      <!-- wp:table -->
+      <table>
+        <thead>
+          <style>
+              table,
+              th,
+              td {
+                  border: 1px solid black;
+              }
+          </style>
+          <tr>
+            <th scope="col"><u>Test input (note : this question assumes all input is of the correct format so such checks are not necessary)</u></th>
+            <th scope="col"><u>Expected result</u></th>
+            <th scope="col"><u>Potential source of error</u></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">OUTPUT  Status(8, 4, 6) </th>
+            <td>C</td>
+            <td>Check wether inequalities are strict</td>
+          </tr>
+          <tr>
+            <th scope="row">OUTPUT  Status(6, 3, 10)</th>
+            <td>A</td>
+            <td>Normal input, check if inequalities are the right way around</td>
+          </tr>
+          <tr>
+            <th scope="row">OUTPUT  Status(13, 3, 10)</th>
+            <td>R</td>
+            <td>Abnormal input</td>
+          </tr>
+          <th scope="row">OUTPUT  Status(3, 4, 8) </th>
+            <td>C</td>
+            <td>Check wether both inequalities are present</td>
+            <th scope="row">OUTPUT  Status(1, 4, 8) </th>
+            <td>R</td>
+            <td>Check wether inequalities are strict</td>
+  
+        </tbody>
+  
+      </table>
+      
+        
+  
+      <!-- /wp:table -->
+      
+      <h1>PyPse Compiler</h1>
+      <textarea id="pseudocode3" placeholder="Enter your pseudocode here..." rows="10" cols="50"></textarea><br>
+      <button onclick="compilePseudocode3()">Run</button>
+      <h2>Output:</h2>
+      <pre id="output3"></pre>
+      <h2>Error:</h2>
+      <pre id="error3"></pre>
+  
+      <script>
+          async function compilePseudocode3() {
+              const pseudocode3 = document.getElementById('pseudocode3').value;
+              const response3 = await fetch('/compile3', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ pseudocode3 }),
+              });
+              const result3 = await response3.json();
+              document.getElementById('output3').textContent = result3.output3 || '';
+              document.getElementById('error3').textContent = result3.error3 || '';
+          }
+      </script>
+      <br> </br> <br> </br>
+      <details>
+  
+          <summary>Hint </summary>
+          <p>Check which ranges the number falls in</p>
+      </details>
+      
+      <details>
+          <summary>Solution from markscheme </summary>
+          <p><br> <pre>
+          Function Status(Actual: INTEGER, Min: INTEGER, Max : INTEGER) RETURNS CHAR
+            DECLARE Result : CHAR
+            CONSTANT Accept = 'A'
+            CONSTANT Reject = 'R'
+            CONSTANT ReCheck = 'C'
+            Result <- ReCheck
+            //Check if reject
+            IF Actual > Max + 2 OR Actual < Min - 2 THEN
+              Result <- Reject
+            ENDIF
+            //Check if acceptable
+            IF Actual < Max - 2 AND Actual > Min + 2 THEN
+              Result <- Accept
+            ENDIF
+            RETURN Result
+          ENDFUNCTION
+  
+  </p>

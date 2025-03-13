@@ -72,15 +72,21 @@ pse_parser = Lark(r"""
         | operator_largerorequalto
         | operator_smallerthan
         | operator_smallerorequalto
+        | operator_concatinate
+        | operator_notequal
+        | operator_mod          
         operator_add: "+"
         operator_minus: "-"
         operator_multiple: "*"
         operator_divide: "/"
         operator_equal: "="
         operator_largerthan: ">"
+        operator_notequal: "<>"
         operator_largerorequalto: ">="
         operator_smallerthan: "<"
         operator_smallerorequalto: "<="
+        operator_concatinate: "&"
+        operator_mod: "MOD"
 
     symbol : CNAME
 

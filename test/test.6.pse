@@ -1,0 +1,6 @@
+DECLARE i : INT
+i <- 0
+WHILE i > 4 DO
+ OUTPUT i
+ i <- i+1
+ENDWHILE

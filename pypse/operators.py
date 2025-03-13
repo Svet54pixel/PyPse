@@ -26,6 +26,19 @@ class OperatorAdd(Operator):
 
     def debug_output():
         DebugOutput.output("+")
+class OperatorConcatinate(Operator):
+    priority = 2
+
+    def operate(value1: Value, value2: Value) -> Value:
+        if value1.value_type == ValueType.STRING and value2.value_type == ValueType.STRING:
+            value = Value(ValueType.STRING)
+            value_in_python = value1.value_in_python + value2.value_in_python
+            value.assign_value_in_python(value_in_python)
+            return value
+        return None
+
+    def debug_output():
+        DebugOutput.output("&")
 
 
 class OperatorMinus(Operator):
@@ -95,6 +108,32 @@ class OperatorLargerThan(Operator):
 
     def debug_output():
         DebugOutput.output(">")
+
+class OperatorNotEqual(Operator):
+    priority = 1
+
+    def operate(value1: Value, value2: Value) -> Value:
+        if value1.value_type == value2.value_type:
+            value_in_python = value1.value_in_python != value2.value_in_python
+            value = Value(ValueType.BOOL)
+            value.assign_value_in_python(value_in_python)
+            return value
+        return None
+
+    def debug_output():
+        DebugOutput.output("<>")
+
+class OperatorMOD(Operator):
+    priority = 3
+
+    def operate(value1: Value, value2: Value) -> Value:
+        value = Value(value1.value_type)
+        value_in_python = value1.value_in_python % value2.value_in_python
+        value.assign_value_in_python(value_in_python)
+        return value
+
+    def debug_output():
+        DebugOutput.output("MOD")
 
 class OperatorSmallerThan(Operator):
     priority = 1

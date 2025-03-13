@@ -1,6 +1,6 @@
 from lark import Tree
 from .values import ValueType, Value
-from .operators import Operator, OperatorAdd, OperatorMinus, OperatorMultiple, OperatorDivide, OperatorEqual, OperatorLargerThan, OperatorSmallerThan
+from .operators import Operator, OperatorAdd, OperatorMinus, OperatorConcatinate, OperatorMultiple, OperatorDivide, OperatorEqual, OperatorLargerThan, OperatorSmallerThan
 from . import blocks
 
 
@@ -137,6 +137,8 @@ def convert_token_to_value(value_token: Tree) -> ValueType:
 def convert_token_to_operator(operator_token: Tree) -> Operator:
     if operator_token == "operator_add":
         return OperatorAdd
+    if operator_token == "operator_concatinate":
+        return OperatorConcatinate
     if operator_token == "operator_minus":
         return OperatorMinus
     if operator_token == "operator_multiple":
